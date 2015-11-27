@@ -1357,6 +1357,8 @@ let
 
   ebook_tools = callPackage ../tools/text/ebook-tools { };
 
+  editorconfig = callPackage ../tools/text/editorconfig { };
+
   ecryptfs = callPackage ../tools/security/ecryptfs { };
 
   editres = callPackage ../tools/graphics/editres { };
