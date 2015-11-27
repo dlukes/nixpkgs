@@ -1831,6 +1831,18 @@ let self = _self // overrides; _self = with self; {
     };
   };
 
+  ClonePP = buildPerlPackage {
+    name = "Clone-PP-1.06";
+    src = fetchurl {
+      url = mirror://cpan/authors/id/N/NE/NEILB/Clone-PP-1.06.tar.gz;
+      sha256 = "4ccf74174a83543787946e5c06a0b3c56f4b3bd29e21632f74d11ade30b9b7e7";
+    };
+    meta = {
+      description = "Unknown";
+      license = "perl";
+    };
+  };
+
   CommonSense = buildPerlPackage rec {
     name = "common-sense-3.74";
     src = fetchurl {
@@ -2602,6 +2614,19 @@ let self = _self // overrides; _self = with self; {
     src = fetchurl {
       url = mirror://cpan/authors/id/R/RA/RAZINF/Data-Password-1.12.tar.gz;
       sha256 = "830cde81741ff384385412e16faba55745a54a7cc019dd23d7ed4f05d551a961";
+    };
+  };
+
+  DataPrinter = buildPerlPackage {
+    name = "Data-Printer-0.36";
+    src = fetchurl {
+      url = mirror://cpan/authors/id/G/GA/GARU/Data-Printer-0.36.tar.gz;
+      sha256 = "7fa95a6dfc9ff61655d3eb49ae6c69e2f0736fbd216a26e36b429d951a8939ed";
+    };
+    propagatedBuildInputs = [ ClonePP FileHomeDir PackageStash SortNaturally ];
+    meta = {
+      description = "Colored pretty-print of Perl data structures and objects";
+      license = "perl";
     };
   };
 
@@ -4932,6 +4957,19 @@ let self = _self // overrides; _self = with self; {
     doCheck = false; # seems to access the network
   };
 
+  GetoptArgParse = buildPerlPackage {
+    name = "Getopt-ArgParse-1.0.6";
+    src = fetchurl {
+      url = mirror://cpan/authors/id/M/MY/MYTRAM/Getopt-ArgParse-1.0.6.tar.gz;
+      sha256 = "b97b12bc93aab3ebd8e294ef6188241022ec84ded8d7ac8351b675ea0c123e7d";
+    };
+    propagatedBuildInputs = [ Moo TestException ];
+    meta = {
+      description = "Parsing args with a richer and more user-friendly API";
+      license = "artistic_2";
+    };
+  };
+
   GetoptLong = buildPerlPackage rec {
     name = "Getopt-Long-2.42";
     src = fetchurl {
@@ -6449,6 +6487,19 @@ let self = _self // overrides; _self = with self; {
     };
   };
 
+  LogFast = buildPerlPackage {
+    name = "Log-Fast-1.0.6";
+    src = fetchurl {
+      url = mirror://cpan/authors/id/P/PO/POWERMAN/Log-Fast-1.0.6.tar.gz;
+      sha256 = "51cec2b55115c6110d459f2faeb6d9b5d696beb1aee02f06d05474f24e1af970";
+    };
+    buildInputs = [ TestException ];
+    meta = {
+      description = "Fast and flexible logger";
+      license = "mit";
+    };
+  };
+
   LogHandler = buildPerlPackage rec {
     name = "Log-Handler-0.87";
     src = fetchurl {
@@ -7599,6 +7650,20 @@ let self = _self // overrides; _self = with self; {
       description = "A Moose role for processing command line options";
       license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
       maintainers = [ maintainers.rycee ];
+    };
+  };
+
+  MooseXGetoptUsage = buildPerlPackage {
+    name = "MooseX-Getopt-Usage-0.24";
+    src = fetchurl {
+      url = mirror://cpan/authors/id/P/PI/PITCHLESS/MooseX-Getopt-Usage-0.24.tar.gz;
+      sha256 = "f2187638d46a61d791339480a29b6ad94588eeb0a5088463d72a13965dc19eaa";
+    };
+    buildInputs = [ CaptureTiny FileSlurp Moose MooseXGetopt TestClass TestDifferences TestException ];
+    propagatedBuildInputs = [ TermReadKey ];
+    meta = {
+      description = "Extend MooseX::Getopt with usage message and man page generated from attribute meta and POD";
+      license = "perl";
     };
   };
 
