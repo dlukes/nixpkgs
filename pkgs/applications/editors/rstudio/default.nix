@@ -1,18 +1,18 @@
-{ stdenv, fetchurl, cmake, boost155, zlib, openssl, R, qt4, libuuid, hunspellDicts, unzip, ant, jdk, gnumake, makeWrapper }:
+{ stdenv, fetchurl, cmake, boost155, zlib, openssl, R, qt5, libuuid, hunspellDicts, unzip, ant, jdk, gnumake, makeWrapper }:
 
 let
-  version = "0.98.110";
+  version = "0.99.489";
   ginVer = "1.5";
   gwtVer = "2.5.1";
 in
 stdenv.mkDerivation {
   name = "RStudio-${version}";
 
-  buildInputs = [ cmake boost155 zlib openssl R qt4 libuuid unzip ant jdk makeWrapper ];
+  buildInputs = [ cmake boost155 zlib openssl R qt5.base libuuid unzip ant jdk makeWrapper ];
 
   src = fetchurl {
     url = "https://github.com/rstudio/rstudio/archive/v${version}.tar.gz";
-    sha256 = "0wybbvl5libki8z2ywgcd0hg0py1az484r95lhwh3jbrwfx7ri2z";
+    sha256 = "c8768b9d80a097c61afe031901bab6130641f6ab5318a5a13eb71e13a36c75ca";
   };
 
   # Hack RStudio to only use the input R.
