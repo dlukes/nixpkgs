@@ -1,7 +1,7 @@
 { stdenv, fetchurl, ncurses, xlibsWrapper, libXaw, libXpm, Xaw3d
 , pkgconfig, gettext, libXft, dbus, libpng, libjpeg, libungif
 , libtiff, librsvg, texinfo, gconf, libxml2, imagemagick, gnutls
-, alsaLib, cairo, acl, gpm, AppKit
+, alsaLib, cairo, acl, gpm, AppKit, makeWrapper
 , withX ? !stdenv.isDarwin
 , withGTK3 ? false, gtk3 ? null
 , withGTK2 ? true, gtk2
@@ -31,6 +31,11 @@ stdenv.mkDerivation rec {
     sha256 = "0kn3rzm91qiswi0cql89kbv6mqn27rwsyjfb8xmwy9m5s8fxfiyx";
   };
 
+  icon = fetchurl {
+    url    = "https://raw.githubusercontent.com/syl20bnr/spacemacs/master/assets/spacemacs.svg";
+    sha256 = "85700ee004fac81c58fdea353b1fd7c2b3ead2ee630f2988b94eba068e3ec072";
+  };
+
   patches = stdenv.lib.optionals stdenv.isDarwin [
     ./at-fdcwd.patch
   ];
@@ -44,7 +49,7 @@ stdenv.mkDerivation rec {
     ++ stdenv.lib.optional stdenv.isLinux dbus
     ++ stdenv.lib.optionals withX
       [ xlibsWrapper libXaw Xaw3d libXpm libpng libjpeg libungif libtiff librsvg libXft
-        imagemagick gconf ]
+        imagemagick gconf makeWrapper ]
     ++ stdenv.lib.optional (withX && withGTK2) gtk2
     ++ stdenv.lib.optional (withX && withGTK3) gtk3
     ++ stdenv.lib.optional (stdenv.isDarwin && withX) cairo;
@@ -65,6 +70,21 @@ stdenv.mkDerivation rec {
   postInstall = ''
     mkdir -p $out/share/emacs/site-lisp/
     cp ${./site-start.el} $out/share/emacs/site-lisp/site-start.el
+    find $out -name emacs.svg -exec cp $icon {} \;
+    icon=`find $out -name emacs.svg | head -n 1`
+    find $out -name emacs.png -exec rm {} \;
+    # a dummy wrapper around nothing, specify a custom exec
+    makeWrapper "" "$out/bin/.emacs-desktop" \
+      --set TMPDIR '/tmp/$USER' \
+      --set XLIB_SKIP_ARGB_VISUALS 1 \
+      --run "exec -a \"\$0\" $out/bin/emacsclient -c -a $out/bin/.emacs-nbi \"\''${extraFlagsArray[@]}\" \"\$@\""
+    # --no-bitmap-icon lets the WM use a custom icon if it exists
+    makeWrapper "$out/bin/emacs" "$out/bin/.emacs-nbi" \
+      --add-flags --no-bitmap-icon
+    # configure desktop file to run .emacs-desktop instead of emacs, and change
+    # icon
+    sed -ri 's/emacs %F/.emacs-desktop %F/' $out/share/applications/emacs.desktop
+    sed -ri "s|Icon=emacs|Icon=$icon|" $out/share/applications/emacs.desktop
   '' + stdenv.lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/Applications
     mv nextstep/Emacs.app $out/Applications
