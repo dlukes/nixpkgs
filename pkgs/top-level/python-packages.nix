@@ -1876,7 +1876,7 @@ in modules // {
       description = "Composable style cycles";
       homepage = http://github.com/matplotlib/cycler;
       license = licenses.bsd3;
-      maintainers = with maintainers; [ fridh ];
+      maintainer = with maintainers; [ fridh ];
     };
   };
 
