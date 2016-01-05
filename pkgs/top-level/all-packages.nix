@@ -692,6 +692,8 @@ let
 
   bfr = callPackage ../tools/misc/bfr { };
 
+  bibtex2html = callPackage ../tools/text/bibtex2html { };
+
   bibtool = callPackage ../tools/misc/bibtool { };
 
   bibutils = callPackage ../tools/misc/bibutils { };
