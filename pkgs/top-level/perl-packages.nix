@@ -8198,7 +8198,7 @@ let self = _self // overrides; _self = with self; {
       url = mirror://cpan/authors/id/P/PI/PITCHLESS/MooseX-Getopt-Usage-0.24.tar.gz;
       sha256 = "f2187638d46a61d791339480a29b6ad94588eeb0a5088463d72a13965dc19eaa";
     };
-    buildInputs = [ CaptureTiny FileSlurp Moose MooseXGetopt TestClass TestDifferences TestException ];
+    buildInputs = [ CaptureTiny FileSlurp ModuleBuild Moose MooseXGetopt TestClass TestDifferences TestException ];
     propagatedBuildInputs = [ TermReadKey ];
     meta = {
       description = "Extend MooseX::Getopt with usage message and man page generated from attribute meta and POD";
