@@ -21103,7 +21103,8 @@ tl: { # no indentation
   md5.doc = "dc641fa7f949c4735e439526c654e17a";
 };
 "texworks" = {
-  md5.run = "757f48e082f68f3ef01d51399d0e62be";
+  # md5.run = "757f48e082f68f3ef01d51399d0e62be";
+  md5.run = "46337da6d7330eaec5a6e2b9409a53aa";
   md5.doc = "7dcae7d03a191e1759f294a62e022196";
   hasRunfiles = true;
 };
