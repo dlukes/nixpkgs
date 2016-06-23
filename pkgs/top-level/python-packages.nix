@@ -25781,4 +25781,22 @@ in modules // {
     };
   };
 
+  sortedcontainers = buildPythonPackage rec {
+    version = "1.5.3";
+    name = "sortedcontainers-${version}";
+
+    src = pkgs.fetchurl {
+      url = "https://pypi.python.org/packages/88/9e/949ef5f596f8b1e5776d148c1a4f16129b671ed377f6fa38e7e3f170cb84/${name}.tar.gz";
+      md5 = "9536cd5a99ab8e65b47059420e29f6ff";
+    };
+
+    doCheck = false;
+
+    meta = with stdenv.lib; {
+      description = "Python SortedContainers";
+      homepage = http://www.grantjenks.com/docs/sortedcontainers/;
+      license = licenses.asl20;
+    };
+  };
+
 }
